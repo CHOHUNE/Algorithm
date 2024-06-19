@@ -3,8 +3,7 @@ class Solution {
         
         int[] answer = new int[s.length()];
         
-        answer[0] = -1;
-        for(int i=1; i<s.length() ; i++){
+        for(int i=0; i<s.length() ; i++){
 
         int idx = s.substring(0,i).lastIndexOf(s.charAt(i));
 
