@@ -1,3 +1,6 @@
-def solution(my_string):
-    
-    return my_string.replace('a','').replace('e','').replace('i','').replace('o','').replace('u','')
+def solution(my_string) :
+	s =''
+	for char in (my_string) :
+		if char not in 'aeiou':
+			s+=char
+	return s
