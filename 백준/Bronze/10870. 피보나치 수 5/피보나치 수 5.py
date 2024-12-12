@@ -1,13 +1,13 @@
-def sol():
-    Num = int(input())
+def sol(num):
     
-    arr=[-1] * (Num+2)
-    arr[0]=0
-    arr[1]=1
-    
-    for i in range(2,Num+1):
-        arr[i]=arr[i-2]+arr[i-1]
+    if num ==0:
+        return 0
+    if num ==1:
+        return 1
+   
+    return sol(num-1)+sol(num-2)
         
-    print(arr[Num])
+
     
-sol()
+num=int(input())
+print(sol(num))
