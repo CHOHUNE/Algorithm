@@ -12,7 +12,5 @@ def sol():
     
     GCD=gcd(N,M)
 
-    N = N//GCD
-    M=M//GCD
-    print(N,M)
+    print(N//GCD,M//GCD)
 sol()
