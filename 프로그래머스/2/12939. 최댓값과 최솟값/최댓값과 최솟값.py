@@ -1,3 +1,3 @@
 def solution(s):
-    nums=list(map(int,s.split()))
-    return str(min(nums))+' '+str(max(nums))
+    num_list = list(map(int,s.split()))
+    return f"{min(num_list)} {max(num_list)}"
