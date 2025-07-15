@@ -1,11 +1,13 @@
 def solution():
-    A = int(input())
-    arr = list(map(int,input().split()))
+   
+    N = int(input())
+    M = [0] + list(map(int,input().split()))
     
-    prefix = [0 for _ in range(A+1)]
+    arr = [0] * (N+1)
     
-    for i in range(A):
-        prefix[i+1]= max(prefix[i]+arr[i],arr[i])
-    print(max(prefix[1:]))
+    for i in range(1,N+1):
+        arr[i] = max(0,arr[i-1]) + M[i]
+        
+    print(max(arr[1:]))
     
 solution()
