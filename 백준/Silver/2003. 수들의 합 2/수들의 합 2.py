@@ -1,16 +1,19 @@
 def solution():
     
     N,M = map(int,input().split())
-    num = [0] + list(map(int,input().split()))
-    total = [0] * len(num)
+    num = list(map(int,input().split()))
     ans =0
-    for i in range(len(num)):
-        total[i] = total[i-1] + num[i]
-        
-    for left in range(1,len(num)):
-        for right in range(left,len(num)):
-            if total[right] - total[left-1] == M:
-                ans+=1
+    left =0
+    right = -1
+    cur_sum=0
+    
+    for left in range (N):
+        while (right+1 < N) and (cur_sum + num[right+1] <= M):
+            right+=1
+            cur_sum += num[right]
+            if(cur_sum == M):
+                ans +=1
+        cur_sum-=num[left]
                 
     print(ans)
 solution()
