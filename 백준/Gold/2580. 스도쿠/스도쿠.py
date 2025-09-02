@@ -1,48 +1,48 @@
-def is_possible(y,x,n):
-    global pos, matrix
-    
-    for i in range(9):
-        if(matrix[i][x] == n):
-            return False
-        
-    for i in range(9):
-        if(matrix[y][i] == n):
-            return False
-        
-    for i in range(3):
-        for j in range(3):
-            if matrix[3*(y//3)+i][3*(x//3)+j] == n:
-                return False
-            
-    return True
-   
 def search(lev):
-    global pos, matrix
+    global row, col, square, matrix, pos
     
-    #base_case
     if lev == len(pos):
         for i in range(9):
             for j in range(9):
-                print(matrix[i][j], end = ' ')
+                print(matrix[i][j],end =' ')
             print()
         exit(0)
-        return
-    
+
     #recursive_case
     y,x =pos[lev]
-    for i in range(1,10):
-        if is_possible(y,x,i):
-            matrix[y][x] = i
-            search(lev+1)
+    for n in range(1,10):
+        if (n not in row[y]) and (n not in col[x]) and (n not in square[y//3][x//3]):
+            row[y].add(n)
+            col[x].add(n)
+            square[y//3][x//3].add(n)
+            matrix[y][x] = n
+            
+            search(lev +1)
+            
             matrix[y][x] = 0
-    
+            square[y//3][x//3].remove(n)
+            col[x].remove(n)
+            row[y].remove(n)
+            
+            
+            
+row = [set() for _ in range(9)]
+col = [set() for _ in range(9)]
+square = [[set() for _ in range(3)] for _ in range(3)]
 matrix = [list(map(int,input().split())) for _ in range(9)]
 pos = []
 
 for i in range(9):
     for j in range(9):
-        if matrix[i][j] == 0:
+        cur = matrix[i][j]
+        
+        if cur == 0:
             pos.append((i,j))
+        else:
+            row[i].add(cur)
+            col[j].add(cur)
+            square[i //3][j //3].add(cur)
+        
 
 search(0)
         
