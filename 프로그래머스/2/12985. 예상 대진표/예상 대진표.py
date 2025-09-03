@@ -1,17 +1,20 @@
 def solution(n,a,b):
-    cnt = 0
+    answer = 0
 
-    for i in range (n//2):
-        a += a%2
-        b += b%2
+    for i in range(n//2):
         
-        cnt +=1 
+        if a==b:
+            return answer
         
-        a //=2
-        b //=2
-        
-        if a==b :
-            return cnt
-        
+        if a % 2 == 0:
+            a//=2
+        else :
+            a=a//2+1
+        if b % 2 == 0:
+            b //=2
+        else :
+            b= b//2+1
+        answer += 1    
+            
 
-    return cnt
+    return answer
