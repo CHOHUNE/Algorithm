@@ -1,12 +1,13 @@
-# 이것도 정답
 def solution(n):
-    if n <= 2:
+    
+    if n <= 2 :
         return n
     
-    prev2, prev1 = 1, 2
+    dp = [0] * (n+1)
+    dp[1] = 1
+    dp[2] = 2
     
-    for i in range(3, n + 1):
-        current = (prev1 + prev2) % 1234567
-        prev2, prev1 = prev1, current
+    for i in range(3,n+1):
+        dp[i]  = dp[i-1] + dp[i-2]
     
-    return current  # 이것도 같은 결과
+    return dp[n]%1234567
