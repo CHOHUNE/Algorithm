@@ -1,6 +1,7 @@
 import math
 def solution(arr):
-    result= arr[0]
-    for i in arr[1:]:
-        result = (result * i) // math.gcd(result,i)
-    return result
+    ans = arr[0]
+    for i in range(1,len(arr)):
+        ans = (ans*arr[i]) // math.gcd(ans,arr[i])
+
+    return ans
