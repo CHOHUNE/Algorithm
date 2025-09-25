@@ -1,44 +1,50 @@
 import sys
+from itertools import permutations
 input = sys.stdin.readline
 
-from itertools import permutations
 
 def solution():
+
     N =int(input())
     num = list(map(int,input().split()))
     spell_count = list(map(int,input().split()))
-
-    lis =[]
-    for i,value in enumerate(spell_count):
-        if i ==0:
-            lis += ['+'] *value
-        elif i ==1:
-            lis += ['-']*value
-        elif i ==2:
-            lis += ['*']*value
-        elif i ==3:
-            lis += ['//']*value
-
     max_result = float('-inf')
     minimum_result = float('inf')
 
-    for per in permutations(lis):
 
-        result = num[0] # 두 번째 항 부터 기호가 들어가서 1번째 항을 자연스럽게 result에다가
+    lis =[]
 
-        for i in range(len(per)): #마지막 안들어가서 index error 없음 
+    def backtrack(idx, current_value):
 
-            if per[i] =='+':
-                result += num[i+1]
-            elif per[i] =='-':
-                result -= num[i+1]
-            elif per[i] == '*':
-                result *= num[i+1]
-            elif per[i] == '//':
-                result = int(result/num[i+1])
+        nonlocal max_result, minimum_result
 
-        max_result = max(result,max_result)
-        minimum_result = min(minimum_result,result)
+        if idx == N:
+            max_result  = max(max_result,current_value)
+            minimum_result = min(minimum_result,current_value)
+            return
+
+        for i in range(4): #4가지 연산자 모두 시도
+
+            if spell_count[i] > 0 : #spell이 있나 확인하기 위함 최적화
+
+                spell_count[i] -= 1
+
+                if i == 0:
+                    new_value = current_value + num[idx]
+                elif i == 1:
+                    new_value = current_value - num[idx]
+                elif i == 2:
+                    new_value = current_value * num[idx]
+                else :
+                    new_value = int(current_value / num[idx]) 
+
+                backtrack(idx+1,new_value)
+
+                spell_count[i] += 1
+
+
+    backtrack(1,num[0])
+
 
     print(max_result)
     print(minimum_result)
