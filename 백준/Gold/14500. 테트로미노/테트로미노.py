@@ -11,8 +11,17 @@ def solution():
     dx = [-1, 1, 0, 0]
     dy = [0, 0, -1, 1]
 
-    # 1️⃣ DFS로 만들 수 있는 모든 테트로미노 (ㅗ 제외)
+    # 가지치기용: 보드에서 가장 큰 값
+    max_cell = max(map(max, board))
+
+    # DFS (ㅗ 제외)
     def dfs(x, y, depth, total):
+        nonlocal ans
+
+        # 가지치기
+        if total + (4 - depth) * max_cell <= ans:
+            return 0
+
         if depth == 4:
             return total
 
@@ -28,7 +37,7 @@ def solution():
                 visited[nx][ny] = False
         return max_value
 
-    # 2️⃣ ㅗ 계열 테트로미노 (중심 기준, 원점 포함)
+    # ㅗ 계열 (중심 포함, 원점 기준)
     shapes = [
         [(0,0), (-1,0), (0,-1), (0,1)],  # ㅗ
         [(0,0), (1,0),  (0,-1), (0,1)],  # ㅜ
@@ -38,7 +47,7 @@ def solution():
 
     for i in range(N):
         for j in range(M):
-            # DFS 시작점 전처리 (필수)
+            # DFS 시작점 전처리
             visited[i][j] = True
             ans = max(ans, dfs(i, j, 1, board[i][j]))
             visited[i][j] = False
