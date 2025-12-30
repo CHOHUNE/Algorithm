@@ -1,27 +1,33 @@
+import sys
 from collections import deque
-
+input = sys.stdin.readline
 
 def solution():
 
+    N, M = map(int,input().split())
 
-    S,E = map(int,input().split())
-    dist = [-1] * 200000
-    que = deque()
-    dist[S]=0
-
-    que.append(S)
+    ans = 0
+    que = deque([(N,0)])
+    visited = [False] * 100001 
+    visited[N] = True
 
     while que:
-        
-        cur_node = que.popleft()
+        this_turn_number,sec = que.popleft()
 
-        if cur_node == E:
-            print(dist[cur_node])
+        if this_turn_number == M:
+            print(sec)
+            return 
 
-        for new_x in (cur_node -1 , cur_node + 1 , cur_node * 2):
-            if 0 <= new_x < len(dist) and dist[new_x] == -1:
+        a = this_turn_number + 1
+        b = this_turn_number - 1
+        c = this_turn_number * 2
+
+        for i in [a,b,c]:
+            if 0 <= i < 100001:
+                if visited[i] == False:
                 
-                dist[new_x] = dist[cur_node] +1
-                que.append(new_x)
+                    visited[i] = True
+                    que.append((i,sec+1))
+
 
 solution()
